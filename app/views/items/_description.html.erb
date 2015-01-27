@@ -1,0 +1,19 @@
+<form accept-charset="UTF-8" action="/descriptions" class="new_description" data-remote="true" id="new_description" method="post" novalidate="novalidate"><div style="margin:0;padding:0;display:inline"><input type="hidden"><input name="authenticity_token" type="hidden" value="VSzeXjTiot5zK61YIV4ET/7xyI2M79vS/8TfrFvG1QA="></div>
+  <textarea class="add_item_area" cols="" id="description_content" name="description[content]" placeholder="テキストを入力" rows="8"></textarea>
+
+  <input id="list_id" name="list_id" type="hidden" value="72506">
+  <input id="cleared" name="cleared" type="hidden" value="1">
+  <input id="item_order" name="item_order" type="hidden" value="1">
+
+  <select id="description_font_type" name="description[font_type]" style="display: none;"><option value="1">小さめ文字サイズ</option>
+<option value="2" selected="selected">標準文字サイズ</option>
+<option value="3">大きめ文字サイズ</option>
+<option value="4">太文字</option>
+<option value="5">太文字・大きめ文字サイズ</option></select><span class="ui-selectmenu-button ui-widget ui-state-default ui-corner-all" tabindex="0" id="description_font_type-button" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-owns="description_font_type-menu" aria-haspopup="true" style="width: 200px;"><span class="ui-icon ui-icon-triangle-1-s"></span><span class="ui-selectmenu-text">標準文字サイズ</span></span>
+
+  <div class="add_btArea clearfix">
+    <input class="btn btn_black" data-disable-with="処理中..." id="add_bt" name="commit" type="submit" value="追加">
+    <a href="javascript:void(0);" onclick="cancel()" id="cancel_bt" class="btn btn_default">キャンセル</a>
+  </div>
+</form>
+<script>jQuery(function(e){e("#description_font_type").selectmenu(),e("#new_description").validate({rules:{"description[content]":{required:!0}},messages:{"description[content]":{required:"<span class='validate_message'>テキストが空です</span>"}}})});</script>

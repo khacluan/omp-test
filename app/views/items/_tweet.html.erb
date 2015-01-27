@@ -1,0 +1,15 @@
+<form accept-charset="UTF-8" action="/tweets/create_from_url" data-remote="true" id="new_twitter" method="post" novalidate="novalidate"><div style="margin:0;padding:0;display:inline"><input type="hidden"><input name="authenticity_token" type="hidden" value="VSzeXjTiot5zK61YIV4ET/7xyI2M79vS/8TfrFvG1QA="></div>
+  <input id="tweet_url" name="tweet_url" placeholder="ツイートのURLを入力" type="text" value="">
+
+  <input id="list_id" name="list_id" type="hidden" value="72506">
+  <input id="cleared" name="cleared" type="hidden" value="1">
+  <input id="item_order" name="item_order" type="hidden" value="1">
+
+  <p><a data-fancybox-type="ajax" href="/tweets/new?list_id=72506&amp;item_order=1" class="popup">探して追加する</a></p>
+
+  <div class="add_btArea clearfix">
+    <input class="btn btn_black" data-disable-with="処理中..." id="add_bt" name="commit" type="submit" value="追加">
+    <a href="javascript:void(0);" onclick="cancel()" id="cancel_bt" class="btn btn_default">キャンセル</a>
+  </div>
+</form>
+<script>jQuery(function(e){e("#new_twitter").validate({rules:{tweet_url:{required:!0,url:!0}},messages:{tweet_url:{required:"<span class='validate_message'>ツイートのURLが空です</span>",url:"<span class='validate_message'>正しいURLの形式で入力してください</span>"}}})});</script>

@@ -1,0 +1,138 @@
+<form accept-charset="UTF-8" action="/images" class="new_image" data-remote="true" enctype="multipart/form-data" id="new_image" method="post" novalidate="novalidate"><div style="margin:0;padding:0;display:inline"><input type="hidden"><input name="authenticity_token" type="hidden" value="VSzeXjTiot5zK61YIV4ET/7xyI2M79vS/8TfrFvG1QA="></div>
+  <div class="clearfix">
+    <img id="check_img" src="https://s3-ap-northeast-1.amazonaws.com/mery-assets/1422334366274/images/default_image.61a89db9.png">
+
+    <div class="check_img_area">
+      <div id="img_url_form">
+        <input class="image_remote_url_form" id="image_image_url" name="image[image_url]" placeholder="画像のURLを入力" size="30" type="text">
+
+        <a href="javascript:void(0)" id="check_img_btn" class="btn btn_black">チェック</a>
+        <a href="javascript:void(0);" onclick="cancel()" id="cancel_bt" class="btn btn_default">キャンセル</a>
+      </div>
+
+      <div id="validate_error"></div>
+
+      <div id="photo_from_upload"></div>
+
+      <div id="photo_btn_area">
+        <a href="javascript:void(0)" id="photo_upload_btn">アップロードして追加</a>
+        <a href="javascript:void(0)" id="photo_url_btn" style="display:none">URLから追加する</a>
+      </div>
+
+      <p><a data-fancybox-type="ajax" href="/images/new?list_id=72506&amp;item_order=1" class="popup">探して追加する</a></p>
+
+      <div class="enter_img_data" style="display:none">
+        コメント
+        <textarea cols="40" id="image_comment" name="image[comment]" rows="5"></textarea>
+
+        <div id="source_url_area">
+          参照元(*)
+          <input id="image_source_url" name="image[source_url]" size="30" type="text">
+        </div>
+
+        <input class="add_item_area" id="list_id" name="list_id" type="hidden" value="72506">
+        <input id="cleared" name="cleared" type="hidden" value="1">
+        <input id="item_order" name="item_order" type="hidden" value="1">
+
+        <div class="clearfix">
+          <input class="submit_url_btn btn btn_black" data-disable-with="アップロード中..." id="add_bt" name="commit" type="submit" value="追加">
+          <input class="submit_upload_btn btn btn_black" id="upload_bt" name="commit" style="display:none;" type="submit" value="アップロード">
+
+          <input id="add_bt" value="保存中..." class="submit_loading_btn btn btn_black" style="display:none" type="button">
+          <a href="javascript:void(0);" onclick="cancel()" id="cancel_bt" class="btn btn_default">キャンセル</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<script>
+  jQuery(function($) {
+    // 画像URLチェック
+    function check_image_url(){
+      var check_url = $('.image_remote_url_form').val();
+
+      if (check_url) {
+        $.ajax({
+          type: 'POST',
+          url: '/images/valid_url',
+          data: {
+            image_url: check_url
+          },
+          dataType: 'script'
+        });
+      } else {
+        alert("画像URLが空です");
+      }
+    }
+
+    // 「アップロードして追加」リンク
+    $('#photo_upload_btn').click(function() {
+      $("#img_url_form").remove();
+      $("#source_url_area").remove();
+      $("#photo_from_upload").append('<input id="photo_image" name="photo[image]" type="file" >');
+      $("#photo_from_upload").append('<input id="is_upload" name="is_upload" type="hidden" value="true">');
+      $(".enter_img_data").show();
+      $("#photo_url_btn").show();
+      $("#photo_upload_btn").hide();
+      $(".submit_upload_btn").show();
+      $(".submit_url_btn").hide();
+    });
+
+    // 「URLから追加」リンク
+    $('#photo_url_btn').click(function() {
+      edit_item(0,72506,'items','new_item','image',1);
+    });
+
+    // URLチェックボタン
+    $('#check_img_btn').click(function() {
+      check_image_url();
+    });
+
+    // アップロードボタン
+    $('.submit_upload_btn').click(function() {
+      if ($(".submit_upload_btn").isVisible()) {
+        $(".submit_upload_btn").hide();
+        $(".submit_loading_btn").show();
+      }
+    });
+
+    // 入力検証
+    $("#new_image").validate({
+      rules : {
+        'image[image_url]': {
+          required: true
+        },
+        'image[source_url]': {
+          required: true,
+          url: true
+        },
+        'photo[image]': {
+          required: true,
+          accept: "jpg|gif|png|jpeg|JPG|JPEG"
+        }
+      },
+      messages: {
+        'image[image_url]': {
+          required: "<span class='validate_message'>画像URLが空です</span>"
+        },
+        'image[source_url]': {
+          required: "<span class='validate_message'>参照元が空です</span>",
+          url: "正しいURLの形式で入力してください"
+        },
+        'photo[image]': {
+          required: "<span class='validate_message'>画像が空です</span>",
+          accept: "<span class='validate_message'>jpg|gif|pngがアップロードできます</span>"
+        }
+      },
+      invalidHandler: function (form, validator) {
+        var errors = validator.numberOfInvalids();
+        if (errors) {
+          if ($(".submit_upload_btn").isVisible()) {
+            $(".submit_upload_btn").show();
+            $(".submit_loading_btn").hide();
+          };
+        }
+      }
+    });
+  });
+</script>

@@ -1,0 +1,14 @@
+<form accept-charset="UTF-8" action="/quotations" class="new_quotation" data-remote="true" id="new_quotation" method="post" novalidate="novalidate"><div style="margin:0;padding:0;display:inline"><input type="hidden"><input name="authenticity_token" type="hidden" value="VSzeXjTiot5zK61YIV4ET/7xyI2M79vS/8TfrFvG1QA="></div>
+  <textarea class="add_item_area" cols="40" id="quotation_content" name="quotation[content]" placeholder="テキストを入力" rows="8"></textarea>
+  <input id="quotation_quote_url" name="quotation[quote_url]" placeholder="引用元URLを入力" size="30" type="text">
+
+  <input id="list_id" name="list_id" type="hidden" value="72506">
+  <input id="cleared" name="cleared" type="hidden" value="1">
+  <input id="item_order" name="item_order" type="hidden" value="1">
+
+  <div class="add_btArea clearfix">
+    <input class="btn btn_black" data-disable-with="処理中..." id="add_bt" name="commit" type="submit" value="追加">
+    <a href="javascript:void(0);" onclick="cancel()" id="cancel_bt" class="btn btn_default">キャンセル</a>
+  </div>
+</form>
+<script>jQuery(function(a){a("#new_quotation").validate({rules:{"quotation[content]":{required:!0},"quotation[quote_url]":{url:!0}},messages:{"quotation[content]":{required:"<span class='validate_message'>引用が空です</span>"},"quotation[quote_url]":{url:"<span class='validate_message'>URLの形式で入力してください</span>"}}})});</script>

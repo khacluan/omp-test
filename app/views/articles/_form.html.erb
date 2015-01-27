@@ -1,0 +1,542 @@
+<div id="createWrapp">
+  <div id="editArea">
+    <form accept-charset="UTF-8" action="/lists/72506" class="edit_list" id="edit_list_72506" method="post" novalidate="novalidate"><div style="margin:0;padding:0;display:inline"><input type="hidden"><input name="_method" type="hidden" value="put"><input name="authenticity_token" type="hidden" value="VSzeXjTiot5zK61YIV4ET/7xyI2M79vS/8TfrFvG1QA="></div>
+      <div class="edit_nav" style="position: relative; top: auto;">
+        <div class="edit_nav_inner clearfix">
+          <select id="list_big_category_id" name="list[big_category_id]" style="display: none;"><option value="">カテゴリを選んでね</option>
+            <option value="1">ファッション</option>
+            <option value="2">メイク・コスメ</option>
+            <option value="3" selected="selected">美容</option>
+            <option value="4">ヘアスタイル</option>
+            <option value="5">恋愛</option>
+            <option value="6">ライフスタイル</option>
+            <option value="7">グルメ</option>
+            <option value="8">旅行・おでかけ</option>
+            <option value="9">ネイル</option>
+          </select>
+
+          <span class="ui-selectmenu-button ui-widget ui-state-default ui-corner-all" tabindex="0" id="list_big_category_id-button" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-owns="list_big_category_id-menu" aria-haspopup="true" style="width: 200px;"><span class="ui-icon ui-icon-triangle-1-s"></span><span class="ui-selectmenu-text">美容</span></span>
+
+          <div class="edit_btnArea clearfix">
+            <input class="btn btn_pink" data-disable-with="保存中..." name="commit" type="submit" value="公開する">
+            <input class="btn btn_black" data-disable-with="保存中..." name="commit" type="submit" value="下書き保存">
+            <input class="btn btn_black" data-disable-with="保存中..." name="commit" type="submit" value="プレビュー">
+          </div>
+        </div>
+        <div class="ui-selectmenu-menu ui-front"><ul aria-hidden="true" aria-labelledby="list_big_category_id-button" id="list_big_category_id-menu" class="ui-menu ui-widget ui-widget-content ui-corner-bottom" role="listbox" tabindex="0"></ul></div></div>
+
+        <div class="edit_articleInfo clearfix">
+          <div class="edit_thumb">
+            <img alt="aaaaaaaaaa" class="crop_image" height="160" id="edit_list_thumbnail" src="/images/noimage.png" width="160">
+          </div>
+
+          <div class="edit_text">
+            <input id="list_title" name="list[title]" placeholder="まとめのタイトル" size="30" type="text" value="aaaaaaaaaa" aria-required="true" aria-invalid="false" class="valid">
+
+            <textarea cols="40" id="list_description" name="list[description]" placeholder="まとめの説明（160文字以内）" rows="20" aria-invalid="false" class="valid">bbbbbbbbbbbb</textarea>
+            <p class="desc_count"><span class="count">12</span>/160文字</p>
+
+            <div class="validate_message"></div>
+
+          </div>
+        </div>
+      </form>
+
+      <form accept-charset="UTF-8" action="/lists/upload_thumbnail" data-remote="true" html="{:multipart=>true}" method="post"><div style="margin:0;padding:0;display:inline"><input type="hidden"><input name="authenticity_token" type="hidden" value="VSzeXjTiot5zK61YIV4ET/7xyI2M79vS/8TfrFvG1QA="></div>
+        <input id="list_id" name="list_id" type="hidden" value="72506">
+
+        <div class="thumb_edit_area clearfix">
+          <div id="img_from_url">
+
+          </div>
+
+          <div id="img_from_upload"><input class="list_image" id="list_image" name="image" type="file"></div>
+
+          <input class="btn btn_default btn_upload_thumb" data-disable-with="設定中..." name="commit" type="submit" value="設定">
+
+          <p class="change_thumb_up">
+            <a href="javascript:void(0)" id="show_img_url_btn" style="">»サムネイル画像をURLから追加</a>
+          </p>
+
+          <p class="change_thumb_up">
+            <a href="javascript:void(0)" id="show_img_upload_btn" style="display: none;">»サムネイル画像をアップロードして追加</a>
+          </p>
+
+        </div>
+      </form>
+
+      <div class="thumb_edit_area clearfix">
+        <div class="change_thumb_up validate_message"></div>
+      </div>
+
+      <div id="wrapper">
+        <div class="validate_message"></div>
+        <div id="addArea">
+          <div class="addItem clearfix">
+            <div class="editMenu">
+              <ul class="pager clearfix">
+                <li class="add_text">
+                  <a href="javascript:void(0);" onclick="edit_item(0,72506,'items','new_item','description',1)">テキスト</a>
+                </li>
+
+                <li class="add_image">
+                  <a href="javascript:void(0);" onclick="edit_item(0,72506,'items','new_item','image',1)">画像</a>
+                </li>
+
+                <li class="add_quote">
+                  <a href="javascript:void(0);" onclick="edit_item(0,72506,'items','new_item','quotation',1)">引用</a>
+                </li>
+
+                <li class="add_headline">
+                  <a href="javascript:void(0);" onclick="edit_item(0,72506,'items','new_item','headline',1)">見出し</a>
+                </li>
+
+                <li class="add_link">
+                  <a href="javascript:void(0);" onclick="edit_item(0,72506,'items','new_item','link',1)">リンク</a>
+                </li>
+
+                <li class="add_twitter">
+                  <a href="javascript:void(0);" onclick="edit_item(0,72506,'items','new_item','tweet',1)">Twitter</a>
+                </li>
+
+                <li class="add_product">
+                  <a href="javascript:void(0);" onclick="edit_item(0,72506,'items','new_item','product',1)">商品</a>
+                </li>
+
+                <li class="add_official_product">
+                  <a data-fancybox-type="ajax" href="/ec_product_items/new/72506/1" class="popup">公式商品</a>
+                </li>
+
+                <li class="add_spot">
+                  <a data-fancybox-type="ajax" href="/items_hair_salons/new?list_id=72506&amp;item_order=1" class="popup">スポット</a>
+                </li>
+
+                <li class="add_movie current">
+                  <a href="javascript:void(0);" onclick="edit_item(0,72506,'items','new_item','movie',1)">YouTube</a>
+                </li>
+
+                <li class="add_perolu">
+                  <a data-fancybox-type="ajax" href="/stocks/new/72506/1" class="popup">追加した画像</a>
+                </li>
+              </ul>
+            </div>
+
+            <div id="item_form_loader" class="loading" style="display: none;">
+              <img src="https://s3-ap-northeast-1.amazonaws.com/mery-assets/1422334366274/images/loading.8e2e8ecb.gif" alt="ローディング...">
+            </div>
+
+          </div>
+
+
+          <div id="new_item">
+            <%= render 'items/movie' %>
+          </div>
+
+          <div id="list_content">
+            <article id="col2_article" class="articleArea editItem_area">
+              <ul id="sortable" class="ui-sortable">
+
+                <div id="item1791006" class="sortableItem article_content">
+                  <div class="sortableItem_inner">
+                    <p class="link">
+                      <a href="http://techcrunch.com/2015/01/25/what-happens-to-privacy-when-the-internet-is-in-everything/" target="_blank">What Happens To Privacy When The Internet Is In Everything?  |  TechCrunch</a>
+                    </p>
+                    <p class="rel">This week Google's Eric Schmidt was on a panel at the World Economic Forum in Davos, where he suggested that the future Internet will be, in one sense,..</p>
+                    <p class="text"></p>
+
+                    <div class="editItem_list clearfix" id="edit_btns2">
+                      <ul class="editItem_btns clearfix">
+                        <li><button class="editItem editItem_down" onclick="edit_item(1791006,72506,'items','plus_order')">下に移動</button></li>
+                        <li><button class="editItem editItem_bottom" onclick="edit_item(1791006,72506,'items','last_order')">最後に移動</button></li>
+
+                        <li><button class="editItem editItem_edit" onclick="edit_item(1791006,72506,'items','edit')">編集する</button></li>
+                        <li>
+                          <a href="http://mery.jp/items/1791006?list_id=72506" class="editItem delete_item editItem_delete" data-method="delete" data-remote="true" rel="nofollow">削除する</a>
+                        </li>
+                      </ul>
+                      <p class="editItem_move"><span class="editItem sort_icon ui-sortable-handle">ドラッグで移動</span></p>
+                    </div>
+                  </div>
+
+                  <div class="addHere_area">
+                    <div class="addHere">
+                      <div id="append_item_btn_area2" class="append_item_btn_area">
+                        <hr>
+                        <a onclick="show_append_item_area(2, 72506);return false" href="javascript:void(0)"><span>ここに追加</span></a>
+                      </div>
+                    </div>
+                    <div id="append_item_area2" class="append_item_area" style="display: none;"></div>
+                  </div>
+                </div>
+
+                <div id="item1791099" class="sortableItem article_content">
+                  <div class="sortableItem_inner">
+                    <h3 class="article_headline_second"><span style="color:#f6b26b">■</span>Sub HEader</h3>
+
+
+
+                    <div class="editItem_list clearfix" id="edit_btns3">
+                      <ul class="editItem_btns clearfix">
+                        <li><button class="editItem editItem_top" onclick="edit_item(1791099,72506,'items','first_order')">先頭に移動</button></li>
+                        <li><button class="editItem editItem_up" onclick="edit_item(1791099,72506,'items','minus_order')">上に移動</button></li>
+                        <li><button class="editItem editItem_down" onclick="edit_item(1791099,72506,'items','plus_order')">下に移動</button></li>
+                        <li><button class="editItem editItem_bottom" onclick="edit_item(1791099,72506,'items','last_order')">最後に移動</button></li>
+
+                        <li><button class="editItem editItem_edit" onclick="edit_item(1791099,72506,'items','edit')">編集する</button></li>
+                        <li>
+                          <a href="http://mery.jp/items/1791099?list_id=72506" class="editItem delete_item editItem_delete" data-method="delete" data-remote="true" rel="nofollow">削除する</a>
+                        </li>
+                      </ul>
+                      <p class="editItem_move"><span class="editItem sort_icon ui-sortable-handle">ドラッグで移動</span></p>
+                    </div>
+                  </div>
+
+                  <div class="addHere_area">
+                    <div class="addHere">
+                      <div id="append_item_btn_area3" class="append_item_btn_area">
+                        <hr>
+                        <a onclick="show_append_item_area(3, 72506);return false" href="javascript:void(0)"><span>ここに追加</span></a>
+                      </div>
+                    </div>
+                    <div id="append_item_area3" class="append_item_area" style="display: none;"></div>
+                  </div>
+                </div>
+
+                <div id="item1790988" class="sortableItem article_content">
+                  <div class="sortableItem_inner">
+                    <h2 class="article_headline" style="border-bottom-color:#ff00ff">Group 1</h2>
+
+
+
+                    <div class="editItem_list clearfix" id="edit_btns4">
+                      <ul class="editItem_btns clearfix">
+                        <li><button class="editItem editItem_top" onclick="edit_item(1790988,72506,'items','first_order')">先頭に移動</button></li>
+                        <li><button class="editItem editItem_up" onclick="edit_item(1790988,72506,'items','minus_order')">上に移動</button></li>
+                        <li><button class="editItem editItem_down" onclick="edit_item(1790988,72506,'items','plus_order')">下に移動</button></li>
+                        <li><button class="editItem editItem_bottom" onclick="edit_item(1790988,72506,'items','last_order')">最後に移動</button></li>
+
+                        <li><button class="editItem editItem_edit" onclick="edit_item(1790988,72506,'items','edit')">編集する</button></li>
+                        <li>
+                          <a href="http://mery.jp/items/1790988?list_id=72506" class="editItem delete_item editItem_delete" data-method="delete" data-remote="true" rel="nofollow">削除する</a>
+                        </li>
+                      </ul>
+                      <p class="editItem_move"><span class="editItem sort_icon ui-sortable-handle">ドラッグで移動</span></p>
+                    </div>
+                  </div>
+
+                  <div class="addHere_area">
+                    <div class="addHere">
+                      <div id="append_item_btn_area4" class="append_item_btn_area">
+                        <hr>
+                        <a onclick="show_append_item_area(4, 72506);return false" href="javascript:void(0)"><span>ここに追加</span></a>
+                      </div>
+                    </div>
+                    <div id="append_item_area4" class="append_item_area" style="display: none;"></div>
+                  </div>
+                </div>
+
+                <div id="item1790938" class="sortableItem article_content">
+                  <div class="sortableItem_inner">
+                    <div class="article_image_area clearfix">
+                      <div class="article_image ">
+                        <img alt="" class="article_img" src="http://dqaeric34olch.cloudfront.net/images/689194/benchmark.png/normal?1422256379">
+                      </div>
+
+                      <div class="article_image_text">
+                        <p class="article_image_desc">comment benchmark</p>
+                      </div>
+                    </div>
+
+                    <div class="editItem_list clearfix" id="edit_btns5">
+                      <ul class="editItem_btns clearfix">
+                        <li><button class="editItem editItem_top" onclick="edit_item(1790938,72506,'items','first_order')">先頭に移動</button></li>
+                        <li><button class="editItem editItem_up" onclick="edit_item(1790938,72506,'items','minus_order')">上に移動</button></li>
+                        <li><button class="editItem editItem_down" onclick="edit_item(1790938,72506,'items','plus_order')">下に移動</button></li>
+                        <li><button class="editItem editItem_bottom" onclick="edit_item(1790938,72506,'items','last_order')">最後に移動</button></li>
+                        <li><button class="editItem editItem_edit" onclick="edit_item(1790938,72506,'items','edit')">編集する</button></li>
+                        <li>
+                          <a href="http://mery.jp/items/1790938?list_id=72506" class="editItem delete_item editItem_delete" data-method="delete" data-remote="true" rel="nofollow">削除する</a>
+                        </li>
+                      </ul>
+                      <p class="editItem_move"><span class="editItem sort_icon ui-sortable-handle">ドラッグで移動</span></p>
+                    </div>
+                  </div>
+
+                  <div class="addHere_area">
+                    <div class="addHere">
+                      <div id="append_item_btn_area5" class="append_item_btn_area">
+                        <hr>
+                        <a onclick="show_append_item_area(5, 72506);return false" href="javascript:void(0)"><span>ここに追加</span></a>
+                      </div>
+                    </div>
+                    <div id="append_item_area5" class="append_item_area" style="display: none;"></div>
+                  </div>
+                </div>
+
+                <div id="item1790863" class="sortableItem article_content">
+                  <div class="sortableItem_inner">
+                    <p class="article_text" style="font-weight:bold">another text</p>
+                    <div class="editItem_list clearfix" id="edit_btns6">
+                      <ul class="editItem_btns clearfix">
+                        <li><button class="editItem editItem_top" onclick="edit_item(1790863,72506,'items','first_order')">先頭に移動</button></li>
+                        <li><button class="editItem editItem_up" onclick="edit_item(1790863,72506,'items','minus_order')">上に移動</button></li>
+                        <li><button class="editItem editItem_down" onclick="edit_item(1790863,72506,'items','plus_order')">下に移動</button></li>
+                        <li><button class="editItem editItem_bottom" onclick="edit_item(1790863,72506,'items','last_order')">最後に移動</button></li>
+                        <li><button class="editItem editItem_edit" onclick="edit_item(1790863,72506,'items','edit')">編集する</button></li>
+                        <li>
+                          <a href="http://mery.jp/items/1790863?list_id=72506" class="editItem delete_item editItem_delete" data-method="delete" data-remote="true" rel="nofollow">削除する</a>
+                        </li>
+                      </ul>
+                      <p class="editItem_move"><span class="editItem sort_icon ui-sortable-handle">ドラッグで移動</span></p>
+                    </div>
+                  </div>
+
+                  <div class="addHere_area">
+                    <div class="addHere">
+                      <div id="append_item_btn_area6" class="append_item_btn_area">
+                        <hr>
+                        <a onclick="show_append_item_area(6, 72506);return false" href="javascript:void(0)"><span>ここに追加</span></a>
+                      </div>
+                    </div>
+                    <div id="append_item_area6" class="append_item_area" style="display: none;"></div>
+                  </div>
+                </div>
+
+                <div id="item1790846" class="sortableItem article_content">
+                  <div class="sortableItem_inner">
+                    <p class="article_text" style="font-size:16px;font-weight:bold">hello</p>
+                    <div class="editItem_list clearfix" id="edit_btns7">
+                      <ul class="editItem_btns clearfix">
+                        <li><button class="editItem editItem_top" onclick="edit_item(1790846,72506,'items','first_order')">先頭に移動</button></li>
+                        <li><button class="editItem editItem_up" onclick="edit_item(1790846,72506,'items','minus_order')">上に移動</button></li>
+                        <li><button class="editItem editItem_down" onclick="edit_item(1790846,72506,'items','plus_order')">下に移動</button></li>
+                        <li><button class="editItem editItem_bottom" onclick="edit_item(1790846,72506,'items','last_order')">最後に移動</button></li>
+                        <li><button class="editItem editItem_edit" onclick="edit_item(1790846,72506,'items','edit')">編集する</button></li>
+                        <li>
+                          <a href="http://mery.jp/items/1790846?list_id=72506" class="editItem delete_item editItem_delete" data-method="delete" data-remote="true" rel="nofollow">削除する</a>
+                        </li>
+                      </ul>
+                      <p class="editItem_move"><span class="editItem sort_icon ui-sortable-handle">ドラッグで移動</span></p>
+                    </div>
+                  </div>
+
+                  <div class="addHere_area">
+                    <div class="addHere">
+                      <div id="append_item_btn_area7" class="append_item_btn_area">
+                        <hr>
+                        <a onclick="show_append_item_area(7, 72506);return false" href="javascript:void(0)"><span>ここに追加</span></a>
+                      </div>
+                    </div>
+                    <div id="append_item_area7" class="append_item_area" style="display: none;"></div>
+                  </div>
+                </div>
+
+                <div id="item1791287" class="sortableItem article_content">
+                  <div class="sortableItem_inner">
+                    <div class="article_image_area clearfix">
+                      <div class="article_image ">
+                        <img alt="" class="article_img" src="http://dqaeric34olch.cloudfront.net/images/689282/20141212-kagitingan-wide-rappl-3131-3594-1422239775.jpg/normal?1422259264">
+                        <p class="rel">出典：  <a href="http://vnexpress.net" target="_blank" onclick="track_outbound('http://vnexpress.net','vnexpress.net','72506','1791287','image','')">vnexpress.net</a>
+                        </p>
+                      </div>
+
+                      <div class="article_image_text">
+                        <p class="article_image_desc">this is image from vnexpress</p>
+                      </div>
+                    </div>
+
+                    <div class="editItem_list clearfix" id="edit_btns8">
+                      <ul class="editItem_btns clearfix">
+                        <li><button class="editItem editItem_top" onclick="edit_item(1791287,72506,'items','first_order')">先頭に移動</button></li>
+                        <li><button class="editItem editItem_up" onclick="edit_item(1791287,72506,'items','minus_order')">上に移動</button></li>
+
+                        <li><button class="editItem editItem_edit" onclick="edit_item(1791287,72506,'items','edit')">編集する</button></li>
+                        <li>
+                          <a href="http://mery.jp/items/1791287?list_id=72506" class="editItem delete_item editItem_delete" data-method="delete" data-remote="true" rel="nofollow">削除する</a>
+                        </li>
+                      </ul>
+                      <p class="editItem_move"><span class="editItem sort_icon ui-sortable-handle">ドラッグで移動</span></p>
+                    </div>
+                  </div>
+
+                  <div class="addHere_area">
+                    <div class="addHere">
+                      <div id="append_item_btn_area8" class="append_item_btn_area">
+                        <hr>
+                        <a onclick="show_append_item_area(8, 72506);return false" href="javascript:void(0)"><span>ここに追加</span></a>
+                      </div>
+                    </div>
+                    <div id="append_item_area8" class="append_item_area" style="display: none;"></div>
+                  </div>
+                </div>
+              </ul>
+            </article>
+
+            <script>
+              if(typeof jQuery !== 'undefined') {
+                jQuery(function($) {
+                  $('#sortable').sortable({
+                    handle: '.sort_icon',
+                    update: function(event, ui) {
+                      $("#item_form_loader").show();
+
+                      var new_order = $(this).sortable('toArray').toString();
+                      new_order = new_order.replace(/list_content,/g,'');
+                      new_order = new_order.split(",");
+                      new_order = new_order.filter(Boolean);
+
+                      $.post(
+                        '/items/sort_order',
+                        {
+                          'new_order': new_order,
+                          'list_id': 72506
+                        }
+                        );
+                    }
+                  });
+
+                  $(".delete_item").click(function () {
+                    var res = confirm("本当に削除してよろしいですか？？");
+
+                    if(res == true) {
+                      $("#new_item").html("");
+                      $("#item_form_loader").show();
+
+                      return true;
+                    } else {
+                      return false;
+                    }
+                  });
+                });
+}
+</script>
+</div>
+
+</div>
+
+
+</div>
+
+<script>
+jQuery(function($) {
+  $('#sortable').sortable({
+    handle: '.sort_icon',
+    update: function(event, ui) {
+      $("#item_form_loader").show();
+
+      var new_order = $(this).sortable('toArray').toString();
+      new_order = new_order.replace(/list_content,/g,'');
+      new_order = new_order.split(",");
+      new_order = new_order.filter(Boolean);
+
+      $.post(
+        '/items/sort_order',
+        {
+          'new_order': new_order,
+          'list_id': 72506
+        }
+        );
+    }
+  });
+});
+
+    // TODO: 丸出し関数
+
+    //編集パーツのボタンをクリックされた時に呼び出される
+    function edit_item(item_id, list_id, controller, action, item_type, item_order){
+      $('#addArea .addItem ul.pager li').removeClass('current');
+      $(this.event.target).closest('li').addClass('current');
+
+      $("#item_form_loader").show();
+
+      post_item_data(item_id, list_id, controller, action, item_type, item_order);
+
+      if (action == "edit"){
+        move_new_item();
+      }
+    }
+
+    function post_item_data(item_id, list_id, controller, action, item_type, item_order){
+      $.ajax({
+        url: '/'+ controller +'/'+ action,
+        type: 'POST',
+        data: {
+          'item': item_id,
+          'list_id': list_id,
+          'item_type': item_type,
+          'item_order': item_order
+        },
+        success: function(response) {
+          $('#new_item').html(response);
+          $('.loading').hide();
+        }
+      });
+
+      if(controller != "items"){
+        // move_new_item(); // TODO: なんでコメントアウトされてる ?
+      }
+    }
+
+    function move_new_item(){
+      var targetOffset = $("#new_item").offset().top - 150;
+      $('html,body').animate({scrollTop: targetOffset},400,"easeInOutQuart");
+    }
+
+    function cancel(){
+      $('#new_item').html("");
+      $('.append_item_area').html("");
+      $('.append_item_btn_area').show();
+      $(".editItem_list").css("visibility","visible");
+    }
+
+    function edit_check(){
+      if ($(".add_item_area").length) {
+        var res = confirm("編集中のデータがあります。よろしいですか？");
+        if(res == true) {
+          $('#new_item').html("");
+        } else {
+          return false;
+        }
+      }
+    }
+
+    function show_append_item_area(order_num, list_id) {
+      close_append_item_area();
+      $("#edit_btns" + order_num).css("visibility","hidden");
+      $("#append_item_btn_area" + order_num).hide();
+
+      var content;
+      content = "<div class='addHere_edit'>";
+      content += "<ul class='addHere_editMenu clearfix'>";
+      content += '<li><a href="javascript:void(0);" onclick="edit_item(0,\'' + list_id + '\',\'items\',\'new_item\',\'description\',\'' + order_num + '\')">テキスト</a></li>';
+      content += '<li><a href="javascript:void(0);" onclick="edit_item(0,\'' + list_id + '\',\'items\',\'new_item\',\'image\',\'' + order_num + '\')">画像</a></li>';
+      content += '<li><a href="javascript:void(0);" onclick="edit_item(0,\'' + list_id + '\',\'items\',\'new_item\',\'quotation\',\'' + order_num + '\')">引用</a></li>';
+      content += '<li><a href="javascript:void(0);" onclick="edit_item(0,\'' + list_id + '\',\'items\',\'new_item\',\'headline\',\'' + order_num + '\')">見出し</a></li>';
+      content += '<li><a href="javascript:void(0);" onclick="edit_item(0,\'' + list_id + '\',\'items\',\'new_item\',\'link\',\'' + order_num + '\')">リンク</a></li>';
+      content += '<li><a href="javascript:void(0);" onclick="edit_item(0,\'' + list_id + '\',\'items\',\'new_item\',\'tweet\',\'' + order_num + '\')">Twitter</a></li>';
+      content += '<li><a href="javascript:void(0);" onclick="edit_item(0,\'' + list_id + '\',\'items\',\'new_item\',\'product\',\'' + order_num + '\')">商品</a></li>';
+      content += '<li><a data-fancybox-type="ajax" href="/ec_product_items/new/' + list_id + '/' + order_num + '" class="popup">公式商品</a></li>';
+      content += '<li><a href="javascript:void(0);" onclick="edit_item(0,\'' + list_id + '\',\'items\',\'new_item\',\'movie\',\'' + order_num + '\')">YouTube</a></li>';
+      content += '<li><a data-fancybox-type="ajax" href="/items_hair_salons/new?list_id=' + list_id + '&item_order=' + order_num + '" class="popup">スポット</a></li>';
+      content += '<li><a data-fancybox-type="ajax" href="/stocks/new/' + list_id + '/' + order_num + '" class="popup">追加した画像</a></li>';
+      content += "</ul>";
+      content += "<p class='closeMenu'><a href='javascript:void(0);' onclick='close_append_item_area()'>閉じる</a></p>";
+      content += "</div>";
+      $("#append_item_area" + order_num).append(content);
+      $("#append_item_area" + order_num).show();
+    }
+
+    function close_append_item_area(){
+      $(".editItem_list").css("visibility","visible");
+      $("#new_item").html("");
+      $(".append_item_area").html("");
+      $(".append_item_btn_area").show();
+    }
+
+  </script>
+
+
+</div>
+
+
+</div>

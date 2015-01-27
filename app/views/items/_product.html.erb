@@ -1,0 +1,265 @@
+<div id="url-search-area" class="new_product">
+  <div id="url-search-area-content">
+    <form id="url-search-area-form" novalidate="novalidate">
+      <input type="text" name="product_search_url" placeholder="商品が掲載されているページのURLを入力*">
+
+      <div class="add_btArea clearfix">
+        <input type="submit" class="btn btn_black" value="チェック">
+        <a href="javascript:void(0);" onclick="cancel()" id="cancel_bt" class="btn btn_default">キャンセル</a>
+      </div>
+
+      <p><a data-fancybox-type="ajax" href="/item_shop_items/new?item_order=1&amp;list_id=72506" class="popup">探して追加する</a></p>
+    </form>
+  </div>
+
+  <div id="search-error"></div>
+
+  <div id="search-result"></div>
+</div>
+
+
+
+<form accept-charset="UTF-8" action="/products" class="new_product" data-remote="true" enctype="multipart/form-data" id="new_product" method="post" novalidate="novalidate" style="display: none;"><div style="margin:0;padding:0;display:inline"><input type="hidden"><input name="authenticity_token" type="hidden" value="VSzeXjTiot5zK61YIV4ET/7xyI2M79vS/8TfrFvG1QA="></div>
+  <div class="product">
+    <div id="validate_error"></div>
+    <h2 class="title_add_item_form">商品情報を入力してください。</h2>
+    <input id="product_name" name="product[name]" placeholder="商品名*" size="30" type="text">
+    <input id="product_image_url" name="product[image_url]" placeholder="商品画像のURLを入力*" size="30" type="text">
+    <input id="product_url" name="product[url]" placeholder="リンク先URL*" size="30" type="text" value="">
+    <input id="product_price" name="product[price]" placeholder="価格 (数字のみを入力)" size="30" type="text">
+    <textarea cols="40" id="product_description" name="product[description]" placeholder="商品に関するコメント" rows="8"></textarea>
+
+    <input class="add_item_area" id="list_id" name="list_id" type="hidden" value="72506">
+    <input id="cleared" name="cleared" type="hidden" value="1">
+    <input id="item_order" name="item_order" type="hidden" value="1">
+  </div>
+
+  <div class="clearfix">
+    <input class="upload_submit_bt btn btn_black" data-disable-with="アップロード中..." id="add_bt" name="commit" type="submit" value="追加">
+
+    <input value="アップロード中..." id="add_bt" class="loading_bt" style="display:none">
+    <a href="javascript:void(0);" onclick="cancel()" id="cancel_bt" class="btn btn_default">キャンセル</a>
+  </div>
+</form>
+
+<script>
+  jQuery(function($) {
+    var urlSearchAreaForm = $("#url-search-area-form");
+
+    $("#new_product").hide();
+    var ecProductShowTemplate = Handlebars.compile($("#ec-product-show-template").html());
+
+    var selectedImageID = undefined;
+
+    var showEcProduct = function(product) {
+
+      $("#url-search-area-content").hide();
+
+      if ( product.sale ) {
+        product.off = Math.round( (product.price - product.sale_price) * 100 / product.price );
+      }
+      var ecProductShowArea = $(ecProductShowTemplate(product));
+      var commentInput = ecProductShowArea.find('#ec-shop-product-item-comment-input').get(0);
+      var addToArticleButton = ecProductShowArea.find("#post-image-btn");
+      var imageList = ecProductShowArea.find(".thumbnail-area > ul > li");
+      var imageListImages = imageList.find("img");
+      var selectedImageArea = ecProductShowArea.find(".product-image > img").first();
+      selectedImageID = imageListImages.first().data("id");
+      selectedImageArea.data("id", selectedImageID);
+      selectedImageArea.attr("src", imageListImages.first().attr("src"));
+      imageList.first().addClass("ec-shop-product-colors-acvite active");
+
+      imageListImages.each(function(index) {
+        $(this).click(function(event) {
+          imageList.removeClass("ec-shop-product-colors-acvite active");
+          $(this).parent().addClass("ec-shop-product-colors-acvite active");
+
+          selectedImageID = $(this).data("id");
+          selectedImageArea.data("id", selectedImageID);
+          selectedImageArea.attr("src", $(this).attr("src"));
+        });
+      });
+
+      // この画像をまとめに追加、に POST
+      addToArticleButton.click(function() {
+        if($(this).attr("disabled") === "disabled") return;
+
+        $(this).attr("disabled", true);
+        $(this).text("追加中...");
+
+        // EC 商品がまとめに追加 API (POST /ec_product_items)
+        $.post("/ec_product_items", {
+          product_id: product.id,
+          image_id: selectedImageID,
+          list_id: 72506,
+          item_order: 1,
+          comment: commentInput.value,
+        }, function() {
+          $("#new_item").html("");
+        }).fail(function() {
+          alert("エラーが発生しました。");
+        });
+      });
+
+      $("#search-result").append(ecProductShowArea);
+    };
+
+    urlSearchAreaForm.submit(function() {
+      if ( ! $(this).valid() ) { return false; }
+      if ( $(this).find(':submit').attr('disabled') === 'disabled' ) { return false; }
+
+      $(this).find(':submit').attr('disabled', 'disabled');
+      $("#new_product").hide();
+      $("#search-error").empty();
+      $("#search-result").empty();
+
+      var imgLoader = $('<img src="https://s3-ap-northeast-1.amazonaws.com/mery-assets/1422334366274/images/ajax_loader2.10a65ee6.gif" class="popup_loader">').appendTo($("#url-search-area"));
+
+      var url = $(this).find('[name=product_search_url]').val();
+      $.get("/ec_products/match", {
+        url: url,
+      }, function(data, status) {
+        showEcProduct(data);
+      }).fail(function(data, status) {
+        if(data.status === 404) {
+          $("#product_url").attr("value", url);
+          $("#url-search-area").hide();
+          $("#new_product").show();
+        }
+        else {
+          alert("エラーが発生しました。");
+        }
+      }).always(function() {
+        imgLoader.remove();
+      });
+
+      return false;
+    });
+
+    $(".upload_submit_bt").click(function () {
+      var is_valid = $("#new_product").valid();
+
+      if (is_valid){
+        $(".upload_submit_bt").hide();
+        $(".loading_bt").show();
+      }
+    });
+
+    urlSearchAreaForm.validate({
+      rules: {
+        'product_search_url': {
+          required: true,
+          url: true,
+        },
+      },
+      messages: {
+        'product_search_url': {
+          required: "<span class='validate_message'>リンク先のURLを入力して下さい</span>",
+          url: "<span class='validate_message'>URLの形式で入力して下さい</span>"
+        },
+      },
+    });
+
+    $("#new_product").validate({
+      rules : {
+        'product[name]': {
+          required: true
+        },
+        'product[url]': {
+          required: true,
+          url: true
+        },
+        'product[image_url]': {
+          required: true,
+          url: "jpg|gif|png|jpeg|JPG|JPEG"
+        },
+        'product[description]': {
+          maxlength: 180
+        },
+        'product[price]': {
+          required: true,
+          number: true
+        }
+      },
+      messages: {
+        'product[name]': {
+          required: "<span class='validate_message'>商品名を入力して下さい</span>"
+        },
+        'product[url]': {
+          required: "<span class='validate_message'>リンク先のURLを入力して下さい</span>",
+          url: "<span class='validate_message'>URLの形式で入力して下さい</span>"
+        },
+        'product[image_url]': {
+          required: "<span class='validate_message'>商品画像が空です</span>",
+          url: "<span class='validate_message'>URLの形式で入力して下さい</span>"
+        },
+        'product[description]': {
+          maxlength: "<span class='validate_message'>コメントは180文字以内で入力して下さい</span>"
+        },
+        'product[price]': {
+          required: "<span class='validate_message'>値段を入力して下さい</span>",
+          number: "<span class='validate_message'>値段は半角数字で入力して下さい</span>"
+        }
+      }
+    });
+  });
+</script><script id="ec-product-show-template" type="text/x-handlebars-template">
+  <div class="ec-shop-product" style="">
+    <div class="content">
+      <div class="product-image">
+        <img width="300" src="">
+      </div>
+
+      <div class="text-area">
+        <p class="brand-name">{{brand_name}}</p>
+        <p class="product-name">{{name}}</p>
+
+        <p class="price {{#unless in_stock}}out{{/unless}}">
+          {{#if sale}}
+            <span class="sale">{{formatNumber sale_price style="currency" currency="JPY"}}</span>
+            <span class="off">{{off}}% OFF</span>
+          {{else}}
+            {{formatNumber price style="currency" currency="JPY"}}
+          {{/if}}
+
+          {{#if in_stock}}
+            <span>（税込）</span>
+          {{else}}
+            <span class="sold-out">（売切）</span>
+          {{/if}}
+        </p>
+
+        {{#if newest}}
+          <p class="status">新入荷</p>
+        {{else}}
+          {{#if restock}}
+            <p class="status">再入荷</p>
+          {{/if}}
+        {{/if}}
+
+        <textarea id="ec-shop-product-item-comment-input" name="comment" rows="6" placeholder="コメント"></textarea>
+
+        <div class="clearfix">
+          <a href="javascript:void(0);" class="btn btn_pink btn-put" id="post-image-btn">この画像をまとめに追加</a><!--
+       --><a href="javascript:void(0);" onclick="cancel()" id="cancel_bt" class="btn btn_default">キャンセル</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="thumbnail-area">
+      <p class="title">まとめに追加する画像を変更する</p>
+      <ul>
+        {{#each variants}}
+        <li>
+          <img data-id="{{image.id}}" src="{{image.image_url}}" style="width: 35px; height: 42px;">
+        </li>
+        {{/each}}
+        {{#each images}}
+        <li>
+          <img data-id="{{id}}" src="{{image_url}}" style="width: 35px; height: 42px;">
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</script>

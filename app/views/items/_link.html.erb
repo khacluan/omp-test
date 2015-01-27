@@ -1,0 +1,40 @@
+<div id="link_url_area">
+  <input placeholder="追加するリンクのURLを入力" type="text" id="headline_content" name="link_url" class="search_url">
+
+  <div class="add_btArea clearfix">
+    <a id="search_btn" value="チェック" class="search_btn btn btn_black">チェック</a>
+    <a href="javascript:void(0);" onclick="cancel()" id="cancel_bt" class="btn btn_default">キャンセル</a>
+  </div>
+</div>
+
+<div id="link_result"></div>
+
+<script>
+  jQuery(function($) {
+    // チェックボタン
+    $(".search_btn").click(function () {
+      var search_url = $('.search_url').val();
+
+      if (search_url){
+        $("#item_form_loader").show();
+
+        $.post(
+          '/links/scrape',
+          {
+            'search_url': search_url,
+            'list_id': 72506,
+            item_order: 1
+          },
+          function(data, status) {
+            $("#item_form_loader").hide();
+            $("#link_url_area").hide();
+            $("#link_result").html(data).append("<br/>");
+          },
+          "html"
+        );
+      } else {
+        alert("URLを入力してください")
+      }
+    });
+  });
+</script>
