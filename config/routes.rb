@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       post 'new_item'
       post 'minus_order'
       post 'plus_order'
+      post 'sort_order'
     end
   end
 

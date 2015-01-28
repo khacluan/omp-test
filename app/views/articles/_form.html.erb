@@ -27,17 +27,13 @@
 
         <div class="edit_articleInfo clearfix">
           <div class="edit_thumb">
-            <img alt="aaaaaaaaaa" class="crop_image" height="160" id="edit_list_thumbnail" src="/images/noimage.png" width="160">
+            <img alt="aaaaaaaaaa" class="crop_image" height="160" id="edit_list_thumbnail" src="/assets/noimage.png" width="160">
           </div>
-
           <div class="edit_text">
             <input id="list_title" name="list[title]" placeholder="まとめのタイトル" size="30" type="text" value="aaaaaaaaaa" aria-required="true" aria-invalid="false" class="valid">
-
             <textarea cols="40" id="list_description" name="list[description]" placeholder="まとめの説明（160文字以内）" rows="20" aria-invalid="false" class="valid">bbbbbbbbbbbb</textarea>
             <p class="desc_count"><span class="count">12</span>/160文字</p>
-
             <div class="validate_message"></div>
-
           </div>
         </div>
       </form>
@@ -46,9 +42,7 @@
         <input id="list_id" name="list_id" type="hidden" value="72506">
 
         <div class="thumb_edit_area clearfix">
-          <div id="img_from_url">
-
-          </div>
+          <div id="img_from_url"></div>
 
           <div id="img_from_upload"><input class="list_image" id="list_image" name="image" type="file"></div>
 
@@ -61,7 +55,6 @@
           <p class="change_thumb_up">
             <a href="javascript:void(0)" id="show_img_upload_btn" style="display: none;">»サムネイル画像をアップロードして追加</a>
           </p>
-
         </div>
       </form>
 
@@ -127,7 +120,6 @@
 
           </div>
 
-
           <div id="new_item">
             <%= render 'items/movie' %>
           </div>
@@ -172,8 +164,6 @@
                 <div id="item1791099" class="sortableItem article_content">
                   <div class="sortableItem_inner">
                     <h3 class="article_headline_second"><span style="color:#f6b26b">■</span>Sub HEader</h3>
-
-
 
                     <div class="editItem_list clearfix" id="edit_btns3">
                       <ul class="editItem_btns clearfix">
@@ -372,171 +362,138 @@
               </ul>
             </article>
 
-            <script>
-              if(typeof jQuery !== 'undefined') {
-                jQuery(function($) {
-                  $('#sortable').sortable({
-                    handle: '.sort_icon',
-                    update: function(event, ui) {
-                      $("#item_form_loader").show();
+          </div>
+        </div>
+      </div>
+      <script>
+        if(typeof jQuery !== 'undefined') {
+          jQuery(function($) {
+            $('#sortable').sortable({
+              handle: '.sort_icon',
+              update: function(event, ui) {
+                $("#item_form_loader").show();
+                var new_order = $(this).sortable('toArray').toString();
+                new_order = new_order.replace(/list_content,/g,'');
+                new_order = new_order.split(",");
+                new_order = new_order.filter(Boolean);
 
-                      var new_order = $(this).sortable('toArray').toString();
-                      new_order = new_order.replace(/list_content,/g,'');
-                      new_order = new_order.split(",");
-                      new_order = new_order.filter(Boolean);
+                $.post(
+                  '/items/sort_order',
+                  {
+                    'new_order': new_order,
+                    'list_id': 72506
+                  }
+                  );
+              }
+            });
+          });
 
-                      $.post(
-                        '/items/sort_order',
-                        {
-                          'new_order': new_order,
-                          'list_id': 72506
-                        }
-                        );
-                    }
-                  });
+          $(".delete_item").click(function () {
+            var res = confirm("本当に削除してよろしいですか？？");
 
-                  $(".delete_item").click(function () {
-                    var res = confirm("本当に削除してよろしいですか？？");
+            if(res == true) {
+              $("#new_item").html("");
+              $("#item_form_loader").show();
 
-                    if(res == true) {
-                      $("#new_item").html("");
-                      $("#item_form_loader").show();
+              return true;
+            } else {
+              return false;
+            }
+          });
 
-                      return true;
-                    } else {
-                      return false;
-                    }
-                  });
-                });
-}
-</script>
-</div>
+          // TODO: 丸出し関数
 
-</div>
+          //編集パーツのボタンをクリックされた時に呼び出される
+          function edit_item(item_id, list_id, controller, action, item_type, item_order){
+            $('#addArea .addItem ul.pager li').removeClass('current');
+            $(this.event.target).closest('li').addClass('current');
 
+            $("#item_form_loader").show();
 
-</div>
+            post_item_data(item_id, list_id, controller, action, item_type, item_order);
 
-<script>
-jQuery(function($) {
-  $('#sortable').sortable({
-    handle: '.sort_icon',
-    update: function(event, ui) {
-      $("#item_form_loader").show();
+            if (action == "edit"){
+              move_new_item();
+            }
+          }
 
-      var new_order = $(this).sortable('toArray').toString();
-      new_order = new_order.replace(/list_content,/g,'');
-      new_order = new_order.split(",");
-      new_order = new_order.filter(Boolean);
+          function post_item_data(item_id, list_id, controller, action, item_type, item_order){
+            $.ajax({
+              url: '/'+ controller +'/'+ action,
+              type: 'POST',
+              data: {
+                'item': item_id,
+                'list_id': list_id,
+                'item_type': item_type,
+                'item_order': item_order
+              },
+              success: function(response) {
+                $('#new_item').html(response);
+                $('.loading').hide();
+              }
+            });
 
-      $.post(
-        '/items/sort_order',
-        {
-          'new_order': new_order,
-          'list_id': 72506
+            if(controller != "items"){
+              // move_new_item(); // TODO: なんでコメントアウトされてる ?
+            }
+          }
+
+          function move_new_item(){
+            var targetOffset = $("#new_item").offset().top - 150;
+            $('html,body').animate({scrollTop: targetOffset},400,"easeInOutQuart");
+          }
+
+          function cancel(){
+            $('#new_item').html("");
+            $('.append_item_area').html("");
+            $('.append_item_btn_area').show();
+            $(".editItem_list").css("visibility","visible");
+          }
+
+          function edit_check(){
+            if ($(".add_item_area").length) {
+              var res = confirm("編集中のデータがあります。よろしいですか？");
+              if(res == true) {
+                $('#new_item').html("");
+              } else {
+                return false;
+              }
+            }
+          }
+
+          function show_append_item_area(order_num, list_id) {
+            close_append_item_area();
+            $("#edit_btns" + order_num).css("visibility","hidden");
+            $("#append_item_btn_area" + order_num).hide();
+
+            var content;
+            content = "<div class='addHere_edit'>";
+            content += "<ul class='addHere_editMenu clearfix'>";
+            content += '<li><a href="javascript:void(0);" onclick="edit_item(0,\'' + list_id + '\',\'items\',\'new_item\',\'description\',\'' + order_num + '\')">テキスト</a></li>';
+            content += '<li><a href="javascript:void(0);" onclick="edit_item(0,\'' + list_id + '\',\'items\',\'new_item\',\'image\',\'' + order_num + '\')">画像</a></li>';
+            content += '<li><a href="javascript:void(0);" onclick="edit_item(0,\'' + list_id + '\',\'items\',\'new_item\',\'quotation\',\'' + order_num + '\')">引用</a></li>';
+            content += '<li><a href="javascript:void(0);" onclick="edit_item(0,\'' + list_id + '\',\'items\',\'new_item\',\'headline\',\'' + order_num + '\')">見出し</a></li>';
+            content += '<li><a href="javascript:void(0);" onclick="edit_item(0,\'' + list_id + '\',\'items\',\'new_item\',\'link\',\'' + order_num + '\')">リンク</a></li>';
+            content += '<li><a href="javascript:void(0);" onclick="edit_item(0,\'' + list_id + '\',\'items\',\'new_item\',\'tweet\',\'' + order_num + '\')">Twitter</a></li>';
+            content += '<li><a href="javascript:void(0);" onclick="edit_item(0,\'' + list_id + '\',\'items\',\'new_item\',\'product\',\'' + order_num + '\')">商品</a></li>';
+            content += '<li><a data-fancybox-type="ajax" href="/ec_product_items/new/' + list_id + '/' + order_num + '" class="popup">公式商品</a></li>';
+            content += '<li><a href="javascript:void(0);" onclick="edit_item(0,\'' + list_id + '\',\'items\',\'new_item\',\'movie\',\'' + order_num + '\')">YouTube</a></li>';
+            content += '<li><a data-fancybox-type="ajax" href="/items_hair_salons/new?list_id=' + list_id + '&item_order=' + order_num + '" class="popup">スポット</a></li>';
+            content += '<li><a data-fancybox-type="ajax" href="/stocks/new/' + list_id + '/' + order_num + '" class="popup">追加した画像</a></li>';
+            content += "</ul>";
+            content += "<p class='closeMenu'><a href='javascript:void(0);' onclick='close_append_item_area()'>閉じる</a></p>";
+            content += "</div>";
+            $("#append_item_area" + order_num).append(content);
+            $("#append_item_area" + order_num).show();
+          }
+
+          function close_append_item_area(){
+            $(".editItem_list").css("visibility","visible");
+            $("#new_item").html("");
+            $(".append_item_area").html("");
+            $(".append_item_btn_area").show();
+          }
         }
-        );
-    }
-  });
-});
-
-    // TODO: 丸出し関数
-
-    //編集パーツのボタンをクリックされた時に呼び出される
-    function edit_item(item_id, list_id, controller, action, item_type, item_order){
-      $('#addArea .addItem ul.pager li').removeClass('current');
-      $(this.event.target).closest('li').addClass('current');
-
-      $("#item_form_loader").show();
-
-      post_item_data(item_id, list_id, controller, action, item_type, item_order);
-
-      if (action == "edit"){
-        move_new_item();
-      }
-    }
-
-    function post_item_data(item_id, list_id, controller, action, item_type, item_order){
-      $.ajax({
-        url: '/'+ controller +'/'+ action,
-        type: 'POST',
-        data: {
-          'item': item_id,
-          'list_id': list_id,
-          'item_type': item_type,
-          'item_order': item_order
-        },
-        success: function(response) {
-          $('#new_item').html(response);
-          $('.loading').hide();
-        }
-      });
-
-      if(controller != "items"){
-        // move_new_item(); // TODO: なんでコメントアウトされてる ?
-      }
-    }
-
-    function move_new_item(){
-      var targetOffset = $("#new_item").offset().top - 150;
-      $('html,body').animate({scrollTop: targetOffset},400,"easeInOutQuart");
-    }
-
-    function cancel(){
-      $('#new_item').html("");
-      $('.append_item_area').html("");
-      $('.append_item_btn_area').show();
-      $(".editItem_list").css("visibility","visible");
-    }
-
-    function edit_check(){
-      if ($(".add_item_area").length) {
-        var res = confirm("編集中のデータがあります。よろしいですか？");
-        if(res == true) {
-          $('#new_item').html("");
-        } else {
-          return false;
-        }
-      }
-    }
-
-    function show_append_item_area(order_num, list_id) {
-      close_append_item_area();
-      $("#edit_btns" + order_num).css("visibility","hidden");
-      $("#append_item_btn_area" + order_num).hide();
-
-      var content;
-      content = "<div class='addHere_edit'>";
-      content += "<ul class='addHere_editMenu clearfix'>";
-      content += '<li><a href="javascript:void(0);" onclick="edit_item(0,\'' + list_id + '\',\'items\',\'new_item\',\'description\',\'' + order_num + '\')">テキスト</a></li>';
-      content += '<li><a href="javascript:void(0);" onclick="edit_item(0,\'' + list_id + '\',\'items\',\'new_item\',\'image\',\'' + order_num + '\')">画像</a></li>';
-      content += '<li><a href="javascript:void(0);" onclick="edit_item(0,\'' + list_id + '\',\'items\',\'new_item\',\'quotation\',\'' + order_num + '\')">引用</a></li>';
-      content += '<li><a href="javascript:void(0);" onclick="edit_item(0,\'' + list_id + '\',\'items\',\'new_item\',\'headline\',\'' + order_num + '\')">見出し</a></li>';
-      content += '<li><a href="javascript:void(0);" onclick="edit_item(0,\'' + list_id + '\',\'items\',\'new_item\',\'link\',\'' + order_num + '\')">リンク</a></li>';
-      content += '<li><a href="javascript:void(0);" onclick="edit_item(0,\'' + list_id + '\',\'items\',\'new_item\',\'tweet\',\'' + order_num + '\')">Twitter</a></li>';
-      content += '<li><a href="javascript:void(0);" onclick="edit_item(0,\'' + list_id + '\',\'items\',\'new_item\',\'product\',\'' + order_num + '\')">商品</a></li>';
-      content += '<li><a data-fancybox-type="ajax" href="/ec_product_items/new/' + list_id + '/' + order_num + '" class="popup">公式商品</a></li>';
-      content += '<li><a href="javascript:void(0);" onclick="edit_item(0,\'' + list_id + '\',\'items\',\'new_item\',\'movie\',\'' + order_num + '\')">YouTube</a></li>';
-      content += '<li><a data-fancybox-type="ajax" href="/items_hair_salons/new?list_id=' + list_id + '&item_order=' + order_num + '" class="popup">スポット</a></li>';
-      content += '<li><a data-fancybox-type="ajax" href="/stocks/new/' + list_id + '/' + order_num + '" class="popup">追加した画像</a></li>';
-      content += "</ul>";
-      content += "<p class='closeMenu'><a href='javascript:void(0);' onclick='close_append_item_area()'>閉じる</a></p>";
-      content += "</div>";
-      $("#append_item_area" + order_num).append(content);
-      $("#append_item_area" + order_num).show();
-    }
-
-    function close_append_item_area(){
-      $(".editItem_list").css("visibility","visible");
-      $("#new_item").html("");
-      $(".append_item_area").html("");
-      $(".append_item_btn_area").show();
-    }
-
-  </script>
-
-
-</div>
-
-
-</div>
+      </script>
+    </div>
+  </div>

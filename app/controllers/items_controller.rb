@@ -13,4 +13,8 @@ class ItemsController < ApplicationController
     puts ">>>>>>> #{params}"
   end
 
+  def sort_order
+    puts ">>>>>>> #{params}"
+  end
+
 end
